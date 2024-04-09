@@ -1,0 +1,49 @@
+---
+import Picture from "@lib/components/Picture.astro";
+import ContainerSection from "@lib/components/ContainerSection.astro";
+import SectionTitle from "@lib/components/SectionTitle.astro";
+import SectionContent from "@lib/components/SectionContent.astro";
+import Hr from "@lib/components/Hr.astro";
+import GfxLogs from "@lib/svg/GfxLogs.astro";
+
+interface Props {
+  data?: MaterialPurchaseSectionData;
+}
+
+const { data } = Astro.props;
+---
+
+<ContainerSection id="metsamaterjal" mirror>
+  <!-- TITLE -->
+  {
+    data.title && (
+      <SectionTitle title={data.title} align="right">
+        <GfxLogs />
+      </SectionTitle>
+    )
+  }
+
+  <SectionContent>
+    <!-- TEXT -->
+    {data.text && <div class="html-text justified" set:html={data.text} />}
+
+    <div class="grid mt-8 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3 sm:grid-flow-row gap-8 sm:gap-12 auto-rows-max">
+      <!-- IMAGE -->
+      {
+        data.picture && (
+          <div class="row-span-1 sm:row-span-3 sm:order-last">
+            <Picture data={data.picture} sizes="(max-width: 640px) 90vw,  700px" class="relative inset-0 object-cover w-full h-full" />
+          </div>
+        )
+      }
+
+      <!-- TEXT 2 -->
+      {data.text2 && <div class="mx-auto lg:col-span-2 html-text justified" set:html={data.text2} />}
+    </div>
+
+    <Hr />
+
+    <!-- TEXT3 -->
+    {data.text3 && <div class="mt-8 sm:mt-12 justified html-text" set:html={data.text3} />}
+  </SectionContent>
+</ContainerSection>

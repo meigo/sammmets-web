@@ -1,0 +1,203 @@
+---
+import ContainerSection from "@lib/components/ContainerSection.astro";
+import SectionTitle from "@lib/components/SectionTitle.astro";
+import Map from "@lib/svg/Map.astro";
+import MagnifyIcon from "@lib/svg/MagnifyIcon.astro";
+import GfxMail from "@lib/svg/GfxMail.astro";
+
+interface Props {
+  language: Language;
+  data?: ContactSectionData;
+}
+
+const { data, language } = Astro.props;
+
+const emailLabel = language === "et" ? "Teie e-post" : "Your e-mail";
+const messageLabel = language === "et" ? "Teie sõnum" : "Your message";
+const submitLabel = language === "et" ? "Saadke sõnum" : "Send message";
+const mapAriaLabel = language === "et" ? "Ava kaart" : "Open map";
+---
+
+<script>
+  const formElement = document.getElementById("contact-form") as HTMLFormElement;
+  formElement.addEventListener("submit", submit);
+
+  const submitButton = document.getElementById("contact-submit-button") as HTMLInputElement;
+
+  const textareaElement = document.getElementById("message") as HTMLTextAreaElement;
+  textareaElement.style.height = "auto";
+  textareaElement.addEventListener("input", autoResize);
+
+  var language = document.documentElement.lang;
+  const successMessage = language === "et" ? "Sõnum saadetud!" : "Message sent!";
+  const errorMessage =
+    language === "et" ? "Sõnumi saatmine ebaõnnestus! Palun proovi uuesti." : "Failed to send message! Please try again.";
+
+  const responseMessageElement = document.getElementById("response-message") as HTMLElement;
+
+  async function submit(e: SubmitEvent) {
+    e.preventDefault();
+
+    submitButton.disabled = true;
+
+    const formData = new FormData(formElement);
+
+    // H o n e y p o t
+    if (formData.get("email") !== "") {
+      formElement.reset();
+      showResponseMessage(false);
+      return;
+    }
+
+    if (!formData.get("liame") || !formData.get("message")) {
+      return;
+    }
+
+    formData.set("email", formData.get("liame"));
+    formData.delete("liame");
+
+    try {
+      const request = await fetch("/contact-form.php", {
+        method: "POST",
+        body: formData,
+      });
+      if (request.ok) {
+        showResponseMessage(true);
+      } else {
+        showResponseMessage(false);
+      }
+    } catch (error) {
+      showResponseMessage(false);
+    }
+
+    formElement.reset();
+  }
+
+  function showResponseMessage(success: boolean = true) {
+    responseMessageElement.textContent = success ? successMessage : errorMessage;
+    responseMessageElement.style.backgroundColor = success ? "#95EC7B" : "#FF7D73";
+    responseMessageElement.hidden = false;
+    setTimeout(() => {
+      responseMessageElement.hidden = true;
+      submitButton.disabled = false;
+    }, 5000);
+  }
+
+  function autoResize() {
+    textareaElement.style.height = textareaElement.scrollHeight + "px";
+  }
+</script>
+
+<ContainerSection id="kontakt">
+  <!-- TITLE -->
+  {
+    data.title && (
+      <SectionTitle title={data.title}>
+        <GfxMail />
+      </SectionTitle>
+    )
+  }
+
+  <!-- CONTENT -->
+  <div class="max-w-3xl px-2 mx-auto mt-8 sm:mt-16">
+    <div class="flex max-w-2xl mx-auto justify-between flex-col sm:flex-row">
+      <!-- TEXT -->
+      {data.text && <div class="html-text" set:html={data.text} />}
+
+      <!-- MAP -->
+      <div class="relative overflow-hidden group mt-10 sm:mt-0 ml-0 sm:ml-10 sm:max-w-64 border-white border-8">
+        <a
+          aria-label={mapAriaLabel}
+          class="block cursor-pointer h-full w-full"
+          href="https://www.google.com/maps/dir//Luha+44b,+V%C3%B5ru,+65607+V%C3%B5ru+maakond/@57.8325956,27.0354097,17z/data=!4m8!4m7!1m0!1m5!1m1!1s0x46eafa97aca9a5b5:0x8a7b68a3dbe11a1!2m2!1d27.0375087!2d57.8323663!5m1!1e1?entry=ttu"
+        >
+          <div class="w-full h-full"><Map /></div>
+        </a>
+
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <MagnifyIcon class="text-white transition duration-500 opacity-0 size-48 group-hover:opacity-50 group-hover:scale-75" />
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <form id="contact-form" class="flex justify-center mt-16">
+      <div class="w-full">
+        <!-- Real fields -->
+        <div>
+          <label for="liame">
+            {emailLabel}
+          </label>
+          <div class="mt-2">
+            <input
+              required
+              type="text"
+              name="liame"
+              id="liame"
+              class="block w-full px-4 py-2 border-0 rounded-sm shadow-sm text-neutral-700 w-xl ring-1 ring-inset ring-neutral-300 placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-lime-600"
+            />
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <label for="message">
+            {messageLabel}
+          </label>
+          <div class="mt-2">
+            <textarea
+              required
+              name="message"
+              id="message"
+              class="block w-full px-4 py-2 border-0 rounded-sm shadow-sm text-neutral-900 ring-1 ring-inset ring-neutral-300 placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-lime-600"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- H o n e y p o t -->
+        <div class="absolute top-0 left-0 w-0 h-0 opacity-0 -z-1">
+          <input autocomplete="off" type="email" id="email" name="email" placeholder="Your e-mail here" tabindex="-1" />
+        </div>
+
+        <div class="flex justify-end py-2 mt-4">
+          <input
+            id="contact-submit-button"
+            class="inline-flex items-center px-6 py-3 ml-3 font-semibold text-white uppercase rounded-md shadow-sm bg-sm-green hover:bg-lime-600 hover:cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:bg-lime-600 disabled:cursor-not-allowed disabled:bg-neutral-400 disabled:text-neutral-600"
+            type="submit"
+            value={submitLabel}
+          />
+        </div>
+
+        <div class="relative flex justify-center mt-4">
+          <div id="response-message" class="absolute px-8 py-2 text-base rounded-md" hidden></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ContainerSection>
+
+<style>
+  textarea {
+    overflow: hidden;
+    resize: none; /* Disable manual resizing */
+    min-height: 150px; /* Set a minimum height */
+  }
+
+  input {
+    @apply autofill:shadow-[inset_0_0_0px_1000px_rgb(255,255,255)];
+  }
+
+  #response-message {
+    animation: slide-fade-up 0.5s 0.1s cubic-bezier(0.5, 1.5, 0.5, 1) both;
+  }
+
+  @keyframes slide-fade-up {
+    0% {
+      transform: translateY(50px);
+      opacity: 0.01;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>

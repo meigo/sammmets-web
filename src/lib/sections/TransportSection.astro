@@ -1,0 +1,62 @@
+---
+import Picture from "@lib/components/Picture.astro";
+import ContainerSection from "@lib/components/ContainerSection.astro";
+import SectionTitle from "@lib/components/SectionTitle.astro";
+import SectionContent from "@lib/components/SectionContent.astro";
+import Hr from "@lib/components/Hr.astro";
+import GfxTyre from "@lib/svg/GfxTyre.astro";
+import MagnifyIcon from "@lib/svg/MagnifyIcon.astro";
+
+interface Props {
+  data?: TransportSectionData;
+}
+
+const { data } = Astro.props;
+---
+
+<ContainerSection id="veoteenus" mirror>
+  <!-- TITLE -->
+  {
+    data.title && (
+      <SectionTitle title={data.title} align="right">
+        <GfxTyre />
+      </SectionTitle>
+    )
+  }
+
+  <SectionContent>
+    <!-- TEXT -->
+    {data.text && <div class="html-text justified" set:html={data.text} />}
+
+    <!-- PICTURES -->
+    {
+      data.pictures && (
+        <div class="grid gap-2 mt-8 sm:mt-12 sm:grid-cols-3">
+          {data.pictures.map((picture) => (
+            <div class={`group relative bg-neutral-500 max-h-64 overflow-hidden`}>
+              <a href={`/image/${picture.id}`} class="cursor-pointer">
+                <Picture
+                  data={picture}
+                  sizes={`(max-width: 640px) 90vw, (max-width: 1020px) 33vw, 700px`}
+                  class="relative inset-0 object-cover w-full h-full"
+                />
+              </a>
+
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <MagnifyIcon class="text-white transition duration-500 opacity-0 size-24 group-hover:opacity-50 group-hover:scale-75" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    <!-- TEXT2 -->
+    {data.text2 && <div class="mt-8 sm:mt-16 html-text justified" set:html={data.text2} />}
+
+    <Hr />
+
+    <!-- TEXT3 -->
+    {data.text3 && <div class="mt-8 sm:mt-12 text-center html-text" set:html={data.text3} />}
+  </SectionContent>
+</ContainerSection>

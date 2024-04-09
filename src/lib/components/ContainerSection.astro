@@ -1,0 +1,19 @@
+---
+import Section from "@components/Section.astro";
+
+interface Props {
+  id?: string;
+  color?: string;
+  slanted?: boolean;
+  mirror?: boolean;
+  border?: boolean;
+}
+
+const { id = "", color = "sm-white", slanted = true, mirror, border } = Astro.props;
+---
+
+<Section {id} {color} {slanted} {mirror} {border}>
+  <div class="max-w-6xl px-4 xl:px-0 sm:mx-auto">
+    <slot />
+  </div>
+</Section>

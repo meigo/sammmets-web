@@ -1,0 +1,43 @@
+---
+import { Picture } from "astro:assets";
+import GrainOverlay from "./GrainOverlay.astro";
+
+interface Props {
+  src: ImageMetadata;
+  height?: number;
+  yOffset?: string | number;
+  loading?: "lazy" | "eager";
+  decoding?: "sync" | "async" | "auto";
+  quality?: number;
+}
+
+const { src, loading = "lazy", decoding = "async", quality = 50, yOffset = 0, height = 500 } = Astro.props;
+---
+
+<!-- <div class="relative rellax w-full h-[100vh] -top-[30vh]" data-rellax-zindex=" 0" data-rellax-speed="-3" data-rellax-percentage="0.5"></div> -->
+<div class="relative flex w-full overflow-hidden" style=`height:${height}px;`>
+  <div class="absolute inset-0 bg-neutral-200"></div>
+  <div
+    class="relative rellax w-full"
+    style=`min-height:${height*1.5}px; top:${-height/2}px`
+    data-rellax-zindex=" 0"
+    data-rellax-speed="-3"
+    data-rellax-percentage="0.5"
+  >
+    <div class="relative w-full h-full" style={"top:" + yOffset}>
+      <Picture
+        class="object-cover w-full h-full"
+        src={src}
+        formats={["avif", "webp"]}
+        {quality}
+        {loading}
+        {decoding}
+        widths={[500, 700, 1024]}
+        sizes={`100vw`}
+        alt="A description of my image."
+      />
+    </div>
+  </div>
+
+  <GrainOverlay />
+</div>

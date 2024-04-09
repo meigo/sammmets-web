@@ -1,0 +1,20 @@
+---
+let items = [
+  "Teekonnaks tõmbas perenaine vanad sukad jalga ja pistis tuliuued omatehtud viisud otsa. Need oli ta isakodust kaasa toonud. Peremees pani endale nartsud ja raagnahka pastlad.",
+  "Lehmaga kõrvu kodu poole minnes pani perenaine talle käe selga. Mehed, kes tükk maad järel tulid, ei pannud seda tähele, küll aga karja-Eedi. Tema silma hakkas see kohe kinni.",
+  "Saunatädi pidi tubase talituse eest muretsema, nagu ta seda oli teinud juba nii mõnigi päev enne noore perenaise saabumist. Madis pidi pererahvaga kaasa minema – nagu oma inimene, kes kõik teab ja kõige kohta oskab seletust anda.",
+];
+---
+
+<ul class="relative -left-2">
+  {items.map((item) => <li>{item}</li>)}
+</ul>
+
+<style>
+  li {
+    @apply pb-4;
+    padding-inline-start: 0.5rem;
+    /* list-style-type: "◇"; */
+    list-style-type: "◆";
+  }
+</style>

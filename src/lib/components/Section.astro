@@ -1,0 +1,52 @@
+---
+import GrainOverlay from "./GrainOverlay.astro";
+
+interface Props {
+  id?: string;
+  color?: string;
+  slanted?: boolean;
+  mirror?: boolean;
+  border?: boolean;
+}
+
+const { id = "", color = "sm-white", slanted = true, mirror, border = true } = Astro.props;
+---
+
+<section {id}>
+  {
+    border && (
+      <div class={`h-20 top-0 sm:top-2 absolute w-full  bg-lime-700  ${slanted && "slanted"} ${mirror ? "slant" : "slant-mirror"}`} />
+    )
+  }
+
+  <div
+    class={`relative mt-32 pt-20 sm:pt-32 z-1 section-shadow pb-36 sm:pb-56 bg-${color} ${slanted && "slanted"} ${mirror ? "slant-mirror" : "slant"}`}
+  >
+    <slot />
+  </div>
+
+  <GrainOverlay />
+</section>
+
+<style is:global>
+  .section-shadow {
+    filter: drop-shadow(0 -10px 10px rgb(0 0 0 / 0.05));
+  }
+
+  .slanted:before {
+    @apply top-0 inset-x-0 h-32 bg-inherit absolute -z-1;
+    content: "";
+  }
+
+  .slant:before {
+    @apply skew-y-2 origin-top-right;
+  }
+
+  .slant-mirror:before {
+    @apply -skew-y-2 origin-top-left;
+  }
+
+  section {
+    @apply relative -mt-32 z-1;
+  }
+</style>

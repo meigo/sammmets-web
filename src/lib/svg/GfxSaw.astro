@@ -1,0 +1,23 @@
+---
+const { class: className = "" } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 200 200"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class=`stroke-1.5 size-22 "${className}`
+>
+  <!-- <path
+    vector-effect="non-scaling-stroke"
+    d="M10 200h49.953L10 150.283 60 150l-50-49.906L60 100 10 50h50L10 0m130 200h49.953L140 150.283l50-.283-50-49.906 50-.094-50-50h50L140 0M99.834 200L75 175.283l50-.283-50-49.906 50-.094-50-50h50L75 25h49.953L99.834 0"
+  >
+  </path> -->
+  <path
+    vector-effect="non-scaling-stroke"
+    d="M125 200l-50-49.906 50-.094-50-50h50L75 50h49.953L75 .283M195 200l-50-49.906 50-.094-50-50h50l-50-50h49.953L145 .283M55 200L5 150.094 55 150 5 100h50L5 50h49.953L5 .283"
+  >
+  </path>
+</svg>

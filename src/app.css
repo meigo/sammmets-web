@@ -1,0 +1,225 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Brandon Grotesque";
+    src: url("/BrandonGrotesque-Regular.woff2") format("woff2"), url("/BrandonGrotesque-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* @font-face {
+    font-family: "Brandon Grotesque";
+    src: url("/BrandonGrotesque-Bold.woff2") format("woff2"), url("/BrandonGrotesque-Bold.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  } */
+
+  @font-face {
+    font-family: "Brandon Grotesque";
+    src: url("/BrandonGrotesque-Medium.woff2") format("woff2"), url("BrandonGrotesque-Medium.woff") format("woff");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body {
+    @apply h-full m-0 p-0;
+  }
+
+  body {
+    @apply text-base sm:text-lg m-0 bg-white text-neutral-700;
+  }
+
+  *,
+  ::before,
+  ::after {
+    @apply border-neutral-700;
+    /* @apply stroke-neutral-700; */
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  dt,
+  label,
+  th {
+    @apply font-brandon;
+  }
+
+  h1 {
+    @apply text-6xl font-normal uppercase;
+  }
+
+  /* SECTION TITLES */
+  h2 {
+    @apply text-8vw sm:text-5xl leading-normal font-normal uppercase;
+  }
+
+  h3 {
+    @apply text-xl font-medium lg:leading-6 uppercase;
+  }
+
+  h4,
+  h5 {
+    @apply text-lg font-medium lg:leading-6 uppercase;
+  }
+
+  label {
+    @apply text-base font-medium uppercase;
+  }
+
+  th {
+    @apply font-medium;
+  }
+
+  strong {
+    font-variation-settings: "wght" 1000;
+  }
+
+  ::selection {
+    @apply bg-sm-green text-white;
+  }
+
+  ul {
+    @apply mt-3 first:mt-0;
+  }
+
+  li {
+    @apply ml-4 pb-4 last:pb-0;
+    /* @apply ml-2 pl-2 pb-4 last:pb-0; */
+    /* list-style-type: "⬩"; */
+  }
+
+  h3 {
+    @apply mt-2;
+  }
+
+  .html-text h3 + hr {
+    @apply sm:hidden;
+  }
+
+  /* .html-text p,
+  .html-text ul {
+    @apply text-justify hyphens-auto;
+  } */
+
+  .html-text h3 {
+    @apply sm:underline;
+    text-underline-offset: 0.75rem;
+    text-decoration-thickness: 1px;
+  }
+
+  .html-text h3,
+  .html-text h4,
+  .html-text h5 {
+    @apply mt-8 sm:mb-3 first:mt-0;
+  }
+
+  .html-text p {
+    @apply mt-2 first:mt-0;
+  }
+
+  .html-text a {
+    @apply font-medium;
+  }
+
+  .justified p {
+    @apply text-justify hyphens-auto;
+  }
+
+  .contact-form-button {
+    @apply h-12 py-0 mt-4 px-4 text-white bg-sm-green hover:bg-lime-600 rounded-lg whitespace-nowrap inline-flex justify-center items-center;
+  }
+}
+
+@layer components {
+  @keyframes fade-in {
+    0% {
+      opacity: 0.01;
+    }
+    100% {
+      opacity: 0.99;
+    }
+  }
+
+  @keyframes slide-fade-up {
+    0% {
+      transform: translateY(10vh);
+      opacity: 0.01;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-fade-down {
+    0% {
+      transform: translateY(-40px);
+      opacity: 0.01;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-fade-right {
+    0% {
+      transform: translateX(-40px);
+      opacity: 0.01;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-fade-left {
+    0% {
+      transform: translateX(40px);
+      opacity: 0.01;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes rotate-fade-y {
+    0% {
+      transform: rotateY(-360deg);
+      opacity: 0.01;
+    }
+    100% {
+      transform: rotateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    0% {
+      transform: scale(0.01);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}

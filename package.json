@@ -1,0 +1,37 @@
+{
+  "name": "sammmets-web",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build && node process-html.mjs",
+    "preview": "astro preview",
+    "astro": "astro",
+    "icons": "node icons/generate.js"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.9",
+    "@astrojs/sitemap": "^3.1.1",
+    "@astrojs/svelte": "^5.2.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "astro": "^4.5.8",
+    "astro-meta-tags": "^0.2.2",
+    "astro-seo-schema": "^4.0.0",
+    "favicons": "^7.2.0",
+    "fs-extra": "^11.2.0",
+    "globby": "^14.0.1",
+    "html-minifier": "^4.0.0",
+    "meta-shortcodes": "^1.0.3",
+    "nanostores": "^0.9.5",
+    "node-html-parser": "^6.1.12",
+    "rellax": "^1.12.1",
+    "schema-dts": "^1.1.2",
+    "svelte": "^4.2.12",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7"
+  }
+}

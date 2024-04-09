@@ -1,0 +1,71 @@
+---
+import {
+  getSiteData,
+  getMenuData,
+  // getBackgroundsData,
+  getAboutSectionData,
+  getLumberSectionData,
+  getPelletsSectionData,
+  getForestrySectionData,
+  getTransportSectionData,
+  getMaterialPurchaseSectionData,
+  getContactSectionData,
+} from "@lib/cms";
+import Layout from "../layouts/MainLayout.astro";
+import Menu from "@lib/menu/Menu.svelte";
+import Footer from "@lib/sections/Footer.astro";
+import AboutSection from "@lib/sections/AboutSection.astro";
+import HeroSection from "@lib/sections/HeroSection.astro";
+import LumberSection from "./sections/LumberSection.astro";
+import PelletSection from "./sections/PelletsSection.astro";
+import ForestrySection from "./sections/ForestrySection.astro";
+import MaterialPurchaseSection from "./sections/MaterialPurchaseSection.astro";
+import TransportSection from "./sections/TransportSection.astro";
+import ContactSection from "./sections/ContactSection.astro";
+import ParallaxImageBorder from "@lib/components/ParallaxImageBorder.astro";
+import parallaxImage2 from "@assets/parallax2.jpg";
+import parallaxImage3 from "@assets/parallax3.jpg";
+
+interface Props {
+  language: Language;
+}
+
+const { language } = Astro.props;
+
+const siteData = await getSiteData(language); // WILL BE SAVED TO STORE
+const menuData = await getMenuData(language);
+const aboutSectionData = await getAboutSectionData(language);
+const lumberSectionData = await getLumberSectionData(language);
+const pelletsSectionData = await getPelletsSectionData(language);
+const forestrySectionData = await getForestrySectionData(language);
+const transportSectionData = await getTransportSectionData(language);
+const materialPurchaseSectionData = await getMaterialPurchaseSectionData(language);
+const contactSectionData = await getContactSectionData(language);
+// const imageSectionsData = await getBackgroundsData();
+---
+
+<Layout {language} title={siteData.title} og schema>
+  <Menu {language} data={menuData} client:load />
+
+  <HeroSection />
+
+  <AboutSection data={aboutSectionData} />
+
+  <LumberSection data={lumberSectionData} />
+
+  <PelletSection data={pelletsSectionData} />
+
+  <ParallaxImageBorder src={parallaxImage2} yOffset="10vh" />
+
+  <TransportSection data={transportSectionData} />
+
+  <ForestrySection data={forestrySectionData} />
+
+  <MaterialPurchaseSection data={materialPurchaseSectionData} />
+
+  <ParallaxImageBorder src={parallaxImage3} yOffset="10vh" mirror />
+
+  <ContactSection {language} data={contactSectionData} />
+
+  <Footer />
+</Layout>

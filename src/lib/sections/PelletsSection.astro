@@ -1,0 +1,50 @@
+---
+import Picture from "@lib/components/Picture.astro";
+import ContainerSection from "@lib/components/ContainerSection.astro";
+import SectionTitle from "@lib/components/SectionTitle.astro";
+import SectionContent from "@lib/components/SectionContent.astro";
+import Hr from "@lib/components/Hr.astro";
+import GfxPellets from "@lib/svg/GfxPellets.astro";
+
+interface Props {
+  data?: PelletSectionData;
+}
+
+const { data } = Astro.props;
+---
+
+<ContainerSection id="puidugraanulid">
+  <!-- TITLE -->
+  {
+    data.title && (
+      <SectionTitle title={data.title}>
+        <GfxPellets />
+      </SectionTitle>
+    )
+  }
+
+  <!-- CONTENT -->
+  <SectionContent>
+    <!-- TEXT -->
+    {data.text && <div class="html-text justified" set:html={data.text} />}
+
+    <div class="grid mt-10 lg:mt-16 lg:grid-cols-3 lg:grid-flow-row gap-x-12 auto-rows-max">
+      <!-- IMAGE -->
+      {
+        data.picture && (
+          <div class="row-span-1 lg:row-span-3 lg:order-last max-h-64 lg:max-h-none">
+            <Picture data={data.picture} sizes="(max-width: 1024px) 90vw, 500px" class="relative inset-0 object-cover w-full h-full" />
+          </div>
+        )
+      }
+
+      <!-- TEXT 2 -->
+      {data.text2 && <div class="mx-auto mt-10 lg:col-span-2 gap-x-12 gap-y-16 lg:mt-0 html-text justified" set:html={data.text2} />}
+    </div>
+
+    <Hr />
+
+    <!-- TEXT3 -->
+    {data.text3 && <div class="mt-8 sm:mt-12 text-center html-text" set:html={data.text3} />}
+  </SectionContent>
+</ContainerSection>

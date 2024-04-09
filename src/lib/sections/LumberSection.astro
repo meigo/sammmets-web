@@ -1,0 +1,67 @@
+---
+import Picture from "@lib/components/Picture.astro";
+import ContainerSection from "@lib/components/ContainerSection.astro";
+import SectionTitle from "@lib/components/SectionTitle.astro";
+import SectionContent from "@lib/components/SectionContent.astro";
+import Hr from "@lib/components/Hr.astro";
+import GfxSaw from "@lib/svg/GfxSaw.astro";
+import MagnifyIcon from "@lib/svg/MagnifyIcon.astro";
+
+interface Props {
+  data?: LumberSectionData;
+}
+
+const { data } = Astro.props;
+---
+
+<ContainerSection id="saematerjal" mirror>
+  <!-- TITLE -->
+  {
+    data.title && (
+      <SectionTitle title={data.title} align="right">
+        <GfxSaw />
+      </SectionTitle>
+    )
+  }
+
+  <SectionContent>
+    <!-- TEXT -->
+    {data.text && <div class="html-text justified" set:html={data.text} />}
+
+    <!-- PRODUCTS -->
+    {
+      data.products && (
+        <div class="grid max-w-4xl gap-10 mx-auto mt-8 sm:mt-12 sm:gap-10 sm:grid-cols-2 group/main">
+          {data.products.map((product) => (
+            <div class="relative flex flex-col h-full mt-0 sm:mt-4">
+              {/* PRODUCT TITLE */}
+              <div>
+                <h3 class="">{product.title}</h3>
+                <hr class="mt-2" />
+              </div>
+
+              {/* PRODUCT TEXT */}
+              <p class="mt-2 justified">{product.text}</p>
+
+              {/* PRODUCT IMAGE */}
+              <div class="relative h-48 mt-4 overflow-hidden group">
+                <a href={`/image/${product.picture.id}`} class="absolute inset-0 block cursor-pointer">
+                  <Picture data={product.picture} sizes={`(max-width: 640px) 80vw, 500px`} class="object-cover w-full h-full" />
+                </a>
+
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <MagnifyIcon class="text-white transition duration-500 opacity-0 size-24 group-hover:opacity-50 group-hover:scale-75" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    <Hr />
+
+    <!-- TEXT2 -->
+    {data.text2 && <div class="mt-8 sm:mt-12 text-center html-text" set:html={data.text2} />}
+  </SectionContent>
+</ContainerSection>

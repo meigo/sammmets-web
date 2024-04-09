@@ -1,0 +1,22 @@
+<script>
+  let className = "";
+  export { className as class };
+  export let href;
+  export let ariaLabel;
+</script>
+
+<a {href} class="outline-none group" aria-label={ariaLabel}>
+  <div
+    class="flex group/slot items-center justify-center p-1 transition duration-250 rounded-full group-focus:bg-pj-cyan hover:bg-pj-cyan hover:scale-110 {className}"
+  >
+    <slot />
+  </div>
+</a>
+
+<style>
+  /* FADE IN ON LOAD */
+  a > div {
+    opacity: 0;
+    animation: fade-in 0.5s 0.25s ease-out forwards;
+  }
+</style>

@@ -1,0 +1,60 @@
+---
+import Picture from "@lib/components/Picture.astro";
+import ContainerSection from "@lib/components/ContainerSection.astro";
+import SectionTitle from "@lib/components/SectionTitle.astro";
+import SectionContent from "@lib/components/SectionContent.astro";
+import Hr from "@lib/components/Hr.astro";
+import MagnifyIcon from "@lib/svg/MagnifyIcon.astro";
+
+interface Props {
+  data?: AboutSectionData;
+}
+
+const { data } = Astro.props;
+---
+
+<ContainerSection id="sissejuhatus">
+  <!-- TITLE -->
+  {data.title && <SectionTitle title={data.title} />}
+
+  <!-- CONTENT -->
+  <SectionContent>
+    <!-- TEXT -->
+    {data.text && <div class="html-text justified" set:html={data.text} />}
+
+    <!-- PICTURES -->
+    {
+      data.pictures && (
+        <div class="grid gap-2 mt-12 sm:grid-cols-2 lg:grid-cols-3">
+          {data.pictures.map((picture, index) => (
+            <div
+              class={`group relative bg-neutral-500 overflow-hidden max-h-64 ${index == 2 && "lg:row-span-2 lg:max-h-full"} ${index == 3 && "lg:col-span-2"}`}
+            >
+              <a href={`/image/${picture.id}`} class="cursor-pointer">
+                <Picture
+                  data={picture}
+                  loading="eager"
+                  decoding="sync"
+                  sizes={`(max-width: 770px) 80vw, (max-width: 1020px) 40vw, (max-width: 1150px) 25vw, ${index > 1 ? "700px" : "400px"}`}
+                  class="relative inset-0 object-cover w-full h-full"
+                />
+              </a>
+
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <MagnifyIcon class="text-white transition duration-500 opacity-0 size-24 group-hover:opacity-50 group-hover:scale-75" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    <!-- TEXT2 -->
+    {data.text2 && <div class="mt-12 sm:mt-16 html-text justified" set:html={data.text2} />}
+
+    <Hr />
+
+    <!-- TEXT3 -->
+    {data.text3 && <div class="mt-8 sm:mt-12 justified html-text" set:html={data.text3} />}
+  </SectionContent>
+</ContainerSection>

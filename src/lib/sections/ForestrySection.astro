@@ -1,0 +1,71 @@
+---
+import Picture from "@lib/components/Picture.astro";
+import ContainerSection from "@lib/components/ContainerSection.astro";
+import SectionTitle from "@lib/components/SectionTitle.astro";
+import SectionContent from "@lib/components/SectionContent.astro";
+import Hr from "@lib/components/Hr.astro";
+import GfxTrees from "@lib/svg/GfxTrees.astro";
+
+interface Props {
+  data?: ForestrySectionData;
+}
+
+const { data } = Astro.props;
+---
+
+<ContainerSection id="metsamajandus">
+  <!-- TITLE -->
+  {
+    data.title && (
+      <SectionTitle title={data.title}>
+        <GfxTrees />
+      </SectionTitle>
+    )
+  }
+
+  <SectionContent>
+    <!-- TEXT -->
+    {data.text && <div class="html-text" set:html={data.text} />}
+
+    <!-- PARAGRAPHS -->
+    {
+      data.paragraphs && (
+        <div class="mt-8 sm:mt-16">
+          {data.paragraphs.map((paragraph) => (
+            <div class="grid sm:grid-cols-2 first:mt-0 mt-10 sm:mt-10 group gap-x-8">
+              {/* PARAGRAPH TITLE} */}
+              <div class="relative sm:col-span-2">
+                {paragraph.title && <h3 class="">{paragraph.title}</h3>}
+                <hr class="mt-2" />
+              </div>
+
+              {/* PARAGRAPH TEXT} */}
+              {paragraph.text && (
+                <div
+                  class="relative html-text mt-3 justified whitespace-pre-wrap sm:mt-3 sm:group-even:order-last"
+                  set:html={paragraph.text}
+                />
+              )}
+
+              {/* PARAGRAPH IMAGE} */}
+              {paragraph.picture && (
+                <div class="relative w-full mt-4 overflow-hidden min-h-64 sm:min-h-44 bg-neutral-500 sm:mt-5">
+                  <Picture
+                    data={paragraph.picture}
+                    sizes="(max-width: 640px) 90vw, (max-width: 1020px) 33vw, 700px"
+                    class="absolute inset-0 object-cover w-full h-full transition duration-300 sm:absolute"
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    <Hr />
+
+    <!-- TEXT2 -->
+    {data.text2 && <div class="mt-8 sm:mt-12 justified html-text" set:html={data.text2} />}
+  </SectionContent>
+</ContainerSection>

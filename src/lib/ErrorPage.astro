@@ -1,0 +1,27 @@
+---
+import "../app.css";
+import GrainOverlay from "@lib/components/GrainOverlay.astro";
+
+interface Props {
+  language: Language;
+}
+
+const { language = "et" } = Astro.props;
+
+const message = language === "et" ? "Lehte ei leitud." : "The page could not be found.";
+const buttonLabel = language === "et" ? "Tagasi pealehele" : "Go back to Home";
+---
+
+<section class="bg-white">
+  <div class="min-h-screen relative flex flex-grow items-center justify-center">
+    <div class="text-center">
+      <h1 class="text-8xl">404</h1>
+      <p class="text-2xl">{message}</p>
+      <a href="/" class="mt-4 inline-block rounded bg-sm-green px-4 py-2 font-semibold hover:bg-lime-600 text-white select-none uppercase">
+        {buttonLabel}
+      </a>
+    </div>
+  </div>
+
+  <GrainOverlay />
+</section>

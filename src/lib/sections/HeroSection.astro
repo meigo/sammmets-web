@@ -1,0 +1,55 @@
+---
+import ParallaxImage from "@lib/components/ParallaxImage.astro";
+
+// import { Picture } from "astro:assets";
+import GrainOverlay from "@lib/components/GrainOverlay.astro";
+import SmLogo from "@lib/svg/SmLogo.astro";
+import parallaxImage from "@assets/parallax1.jpg";
+---
+
+<div class="absolute h-[50vh] flex justify-center items-center w-full mx-auto z-1">
+  <div class="relative flex items-center justify-center w-64 -top-36 rellax" data-rellax-speed="-4" data-rellax-percentage="0.5">
+    <div class="flex items-center justify-center p-2 xl:mt-24 rounded-full shadow-md w-52 h-52 bg-sm-white ani-in"><SmLogo /></div>
+  </div>
+</div>
+
+<ParallaxImage src={parallaxImage} yOffset="0vh" loading="eager" decoding="sync" quality={50} />
+
+<!-- <div class="absolute h-[50vh] flex justify-center items-center w-full mx-auto z-1">
+  <div class="flex items-center justify-center xl:mt-10 rounded-full shadow-md size-52 bg-sm-white ani-in"><SmLogo /></div>
+</div> -->
+
+<!-- <div class="relative flex w-full h-[50vh] overflow-hidden">
+  <Picture
+    class="absolute inset-0 object-cover w-full h-full"
+    src={harvester}
+    formats={["avif", "webp"]}
+    loading="eager"
+    decoding="sync"
+    widths={[500, 700, 1024]}
+    sizes={`100vw`}
+    alt="A description of my image."
+  />
+</div> -->
+
+<GrainOverlay />
+
+<style>
+  /* FADE IN ON LOAD */
+  .ani-in {
+    opacity: 0.01;
+    transform: scale(0.01) rotateX(-180deg);
+    animation: in-keys 1s 0.25s ease-out forwards;
+  }
+
+  @keyframes in-keys {
+    0% {
+      opacity: 0.01;
+      transform: scale(0.01) rotateX(-180deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotateX(0);
+    }
+  }
+</style>
