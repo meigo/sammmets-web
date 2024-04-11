@@ -45,6 +45,8 @@ const contactSectionData = await getContactSectionData(language);
 ---
 
 <Layout {language} title={siteData.title} og schema>
+  <h1 class="absolute text-xs text-white -top-10">{siteData.title}</h1>
+
   <Menu {language} data={menuData} client:load />
 
   <HeroSection />
