@@ -105,6 +105,7 @@ const langBase = `${base}${language === "en" ? "en/" : ""}`;
     {data.description && <meta name="description" content={data.description} />}
     {data.keywords && <meta name="keywords" content={data.keywords.join(", ")} />}
     <meta name="robots" content={`${noindex ? "noindex" : "index"}, ${nofollow ? "nofollow" : "follow"}`} />
+    <meta name="robots" content="max-image-preview:large" />
     <meta name="google" content="nositelinkssearchbox" />
 
     <!-- OPEN GRAPH -->
