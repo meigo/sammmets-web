@@ -1,3 +1,9 @@
 # SAMM METS OÜ veebileht
 
-## https://astro.build/
+https://sammmets.ee
+
+https://astro.build/
+
+https://svelte.dev/
+
+https://getcockpit.com/
