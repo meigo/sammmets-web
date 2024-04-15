@@ -7,9 +7,10 @@ interface Props {
   slanted?: boolean;
   mirror?: boolean;
   border?: boolean;
+  grain?: boolean;
 }
 
-const { id = "", color = "sm-white", slanted = true, mirror, border = true } = Astro.props;
+const { id = "", color = "sm-white", slanted = true, mirror, border = true, grain } = Astro.props;
 ---
 
 <section {id}>
@@ -25,7 +26,7 @@ const { id = "", color = "sm-white", slanted = true, mirror, border = true } = A
     <slot />
   </div>
 
-  <GrainOverlay />
+  {grain && <GrainOverlay />}
 </section>
 
 <style is:global>

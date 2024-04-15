@@ -11,9 +11,10 @@ interface Props {
   quality?: number;
   mirror?: boolean;
   border?: boolean;
+  grain?: boolean;
 }
 
-const { src, loading = "lazy", decoding = "async", quality = 50, yOffset = 0, height = 500, mirror, border = true } = Astro.props;
+const { src, loading = "lazy", decoding = "async", quality = 50, yOffset = 0, height = 500, mirror, border = true, grain } = Astro.props;
 ---
 
 <section class="relative -mt-40">
@@ -49,6 +50,6 @@ const { src, loading = "lazy", decoding = "async", quality = 50, yOffset = 0, he
       </div>
     </div>
 
-    <GrainOverlay />
+    {grain && <GrainOverlay />}
   </div>
 </section>

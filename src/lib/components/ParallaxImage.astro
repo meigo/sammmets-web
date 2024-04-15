@@ -9,9 +9,10 @@ interface Props {
   loading?: "lazy" | "eager";
   decoding?: "sync" | "async" | "auto";
   quality?: number;
+  grain?: boolean;
 }
 
-const { src, loading = "lazy", decoding = "async", quality = 50, yOffset = 0, height = 500 } = Astro.props;
+const { src, loading = "lazy", decoding = "async", quality = 50, yOffset = 0, height = 500, grain } = Astro.props;
 ---
 
 <!-- <div class="relative rellax w-full h-[100vh] -top-[30vh]" data-rellax-zindex=" 0" data-rellax-speed="-3" data-rellax-percentage="0.5"></div> -->
@@ -39,5 +40,5 @@ const { src, loading = "lazy", decoding = "async", quality = 50, yOffset = 0, he
     </div>
   </div>
 
-  <GrainOverlay />
+  {grain && <GrainOverlay />}
 </div>
